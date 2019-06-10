@@ -334,3 +334,9 @@ To execute change into the examples directory to run:
 # Feedback and Support
 
 For more information, feedback, or community support see the Tesla Motors Club forum at http://www.teslamotorsclub.com/showthread.php/13410-Model-S-REST-API or email teslams@googlegroups.com
+
+# Running in Docker
+Example:
+```
+docker run --name teslams -d -e TSLA_USERNAME=*** -e TSLA_PASSWORD=*** -e MONGOHQ_URI=mongodb://***:27017/ teslams:latest
+```

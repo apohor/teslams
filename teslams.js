@@ -16,7 +16,7 @@ var model = 'SM-G900V';
 var codename = 'REL';
 var release = '4.4.4';
 var locale = 'en_US';
-var user_agent = 'Model S ' + version + ' (' + model + '; Android ' + codename + ' ' + release + '; ' + locale + ')';
+var user_agent = 'Model 3 ' + version + ' (' + model + '; Android ' + codename + ' ' + release + '; ' + locale + ')';
 var x_tesla_user_agent = 'TeslaApp/3.4.4-350/fad4a582e/android/9.0.0';
 
 //Common HTTP header variable for all requests. Includes authentication credentials (token) and user agent string
