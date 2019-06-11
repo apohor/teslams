@@ -93,7 +93,7 @@ var baseText = {
 };
 var optionText = {
     PPTI: "<li> titanium metallic</li>",
-    PBSB: "<li> black</li>",
+    PBSB: "<li> multi-coat pearl white</li>",
     PMBL: "<li> obsidian black</li>",
     PBCW: "<li> solid white</li>",
     PMSS: "<li> silver</li>",
