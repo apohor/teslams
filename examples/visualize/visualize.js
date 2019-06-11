@@ -337,7 +337,7 @@ app.namespace(baseUrl, function() {
                 optionString = "<ul>";
                 rawoptions = docs[0].vehicles.option_codes;
                 rawoptions = rawoptions.replace("PPSR", "COL0-PPSR");
-                rawoptions = rawoptions.replace("PBSB", "COL3-PPSW");
+                rawoptions = rawoptions.replace("PBSB", "PPSW");
                 rawoptions = rawoptions.replace("W39B", "W38B");
                 rawoptions = rawoptions.replace("PBCW", "COL1-PBCW");
                 rawoptions = rawoptions.replace("PMAB", "COL2-PMAB");
