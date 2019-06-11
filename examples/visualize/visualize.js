@@ -330,14 +330,15 @@ app.namespace(baseUrl, function() {
                 capacity = 60;
             } else {
                 if (docs.length > 1)
-                    console.log("congratulations, you have more than one Tesla Model S - this only supports your first car");
+                    console.log("congratulations, you have more than one Tesla Model 3 - this only supports your first car");
                 vin = docs[0].vehicles.vin;
                 name = docs[0].vehicles.display_name;
                 
                 optionString = "<ul>";
                 rawoptions = docs[0].vehicles.option_codes;
                 rawoptions = rawoptions.replace("PPSR", "COL0-PPSR");
-                rawoptions = rawoptions.replace("PBSB", "COL1-PBSB");
+                rawoptions = rawoptions.replace("PBSB", "COL3-PPSW");
+                rawoptions = rawoptions.replace("W39B", "W38B");
                 rawoptions = rawoptions.replace("PBCW", "COL1-PBCW");
                 rawoptions = rawoptions.replace("PMAB", "COL2-PMAB");
                 rawoptions = rawoptions.replace("PMSG", "COL2-PMSG");
