@@ -12,17 +12,17 @@
 <script type="text/javascript">
 $(function() {
 	var now = new Date();
-	var start = new Date(+now - 12 * 3600000);
+	var start = new Date();//(+now - 12 * 3600000);
 	var fromQ = $.url("?from");
 	if (fromQ == null || fromQ == "") {
-		fromQ = start.getFullYear() + "/" + (+start.getMonth() + 1) + "/" + start.getDate() + "-" +
-			start.getHours() + ":" + start.getMinutes() + ":" + start.getSeconds();
+		fromQ = start.getFullYear() + "-" + (+start.getMonth() + 1) + "-" + start.getDate() + "-" +
+			start.getHours() + "-" + start.getMinutes() + "-" + start.getSeconds();
 	}
 	if (fromQ.split("-").length == 5) fromQ += "-00";
 	var toQ = $.url("?to");
 	if (toQ == null || toQ == "") {
-		toQ = now.getFullYear() + "/" + (+now.getMonth() + 1) + "/" + now.getDate() + "-" +
-			now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+		toQ = now.getFullYear() + "-" + (+now.getMonth() + 1) + "-" + now.getDate() + "-" +
+			now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds();
 	}
 	if (toQ.split("-").length == 5) toQ += "-00";
 	$("#frompicker").val(fromQ);
@@ -31,9 +31,9 @@ $(function() {
 	$("#statslink").attr("href", "stats?from=" + fromQ + "&to=" + toQ);
 	$("#energylink").attr("href", "energy?from=" + fromQ + "&to=" + toQ);
 	$("#frompicker").datetimepicker({
-		dateFormat: "yy/mm/dd",
-		timeFormat: "HH:mm:ss",
-		separator: '-',
+		dateFormat: "yy-mm-dd",
+		timeFormat: "HH-mm-ss",
+		separator: "-",
 		defaultValue: fromQ,
 		onClose: function(dateText, inst) {
 			if (dateText.length > 10 && compareTime(dateText, fromQ) != 0) {
@@ -45,9 +45,9 @@ $(function() {
 		}
 	});
 	$("#topicker").datetimepicker({
-		dateFormat: "yy/mm/dd",
-		timeFormat: "HH:mm:ss",
-		separator: '-',
+		dateFormat: "yy-mm-dd",
+		timeFormat: "HH-mm-ss",
+		separator: "-",
 		defaultValue: toQ,
 		onClose: function(dateText, inst) {
 			if (dateText.length > 10 && compareTime(dateText, toQ) != 0) {
