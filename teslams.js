@@ -253,7 +253,7 @@ exports.get_gui_settings = get_gui_settings;
 function wake_up( vid, cb ) {
     request( { 
         method: 'POST', 
-        url: portal + '/vehicles/' + vid + '/command/wake_up',
+        url: portal + '/vehicles/' + vid + '/wake_up',
         gzip: true,
         headers: http_header
     }, function (error, response, body) { 

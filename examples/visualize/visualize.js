@@ -85,6 +85,7 @@ var baseText = {
     PX01: "PLUS",
     BT60: "60",
     BT40: "40",
+    BT37: "75",
     P85D: "P85",
     BT70: "70",
     DV4W: "D",
