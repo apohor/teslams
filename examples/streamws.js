@@ -287,7 +287,7 @@ var live_stream = {
 		});
 	},
 	update: function(data) {
-		//ulog('stream: ' + data);
+		ulog('stream: ' + data);
 
 		var d,vals, record, doc;
 		d = data.toString().trim();
