@@ -555,6 +555,7 @@ function initstream() {
 		//check we got a valid JSON response from Tesla
 		try {
 			vdata = JSONbig.parse(body);
+			ulog('Vehicles info: ' + vehicles);
 		} catch(err) {
 			ulog('Error: unable to parse vehicle data response as JSON, login failed. Trying again.');
 			setTimeout(function() {
@@ -633,7 +634,7 @@ function initstream() {
 					stream.write('timestamp,' + argv.values + '\n');
 				}
 			}
-			live_stream.init(vehicles.vehicle_id, vehicles.id, vehicles.tokens[0], now);
+			live_stream.init(vehicles.vehicle_id, vehicles.id_s, vehicles.tokens[0], now);
 			icount = icount - 1;
 			return;
 		}
