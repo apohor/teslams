@@ -633,7 +633,7 @@ function initstream() {
 					stream.write('timestamp,' + argv.values + '\n');
 				}
 			}
-			live_stream.init(vehicles.vehicle_id, vehicles.id_s, vehicles.tokens[0], now);
+			live_stream.init(vehicles.vehicle_id, vehicles.id, vehicles.tokens[0], now);
 			icount = icount - 1;
 			return;
 		}
