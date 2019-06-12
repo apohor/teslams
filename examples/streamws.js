@@ -555,7 +555,7 @@ function initstream() {
 		//check we got a valid JSON response from Tesla
 		try {
 			vdata = JSONbig.parse(body);
-			vehicle_long_vid = vdata.response[argv.vehicle].id_s;
+			long_vid = vdata.response[argv.vehicle].id_s;
 			ulog('Vehicle long vid: ' + vehicle_long_vid);
 		} catch(err) {
 			ulog('Error: unable to parse vehicle data response as JSON, login failed. Trying again.');
@@ -573,7 +573,7 @@ function initstream() {
 			process.exit(1);
 		}
 		// use the vehicle offset from the command line (if specified) to identify the right car in case of multi-car account
-		//vehicles = vdata.response[argv.vehicle];
+		vehicles = vdata.response[argv.vehicle];
 		if (vehicles === undefined) {
 			ulog('Error: No vehicle data returned for car number ' + argv.vehicle);
 			process.exit(1);
