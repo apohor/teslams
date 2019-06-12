@@ -556,7 +556,7 @@ function initstream() {
 		try {
 			vdata = JSONbig.parse(body);
 			long_vid = vdata.response[argv.vehicle].id_s;
-			ulog('Vehicle long vid: ' + vehicle_long_vid);
+			ulog('Vehicle long_vid: ' + long_vid);
 		} catch(err) {
 			ulog('Error: unable to parse vehicle data response as JSON, login failed. Trying again.');
 			setTimeout(function() {
