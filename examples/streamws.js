@@ -24,7 +24,6 @@ var usage = 'Usage: $0 -u <username> -p <password> [-sz] \n' +
 	'   [--mqtt <mqtt://hostname>] [--topic <mqtt_topic>] \n' +
 	'   [--values <value list>] [--maxrpm <#num>] [--vehicle offset] [--naptime <#num_mins>]';
 
-var s_url = 'https://streaming.vn.teslamotors.com/stream/';
 var collectionS, collectionA;
 var firstTime = true;
 var MongoClient;
@@ -262,6 +261,7 @@ var live_stream = {
 		});
 		this.ws.on('close', (code, reason) => {
 			ulog('websocket closed, code=' + code + ', reason=' + reason + ', backoff=' + this.backoff);
+			this.ws = undefined;
 			this._retry();
 		});
 		this.ws.on('error', (err) => {
