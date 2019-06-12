@@ -189,10 +189,11 @@ var live_stream = {
 	 * init - initialize websocket connection to Tesla streaming endpoint
 	 *
 	 * @param {number} vid - vehicle_id as returned by /vehicles API call
+	 * @param {number} long_vid - id_s as returned by /vehicles API call
 	 * @param {string} token - tokens[0] returned by /vehicles API call
 	 * @param {number} ts - 1ms timestamp of token request
 	 */
-	init: function(vid, token, ts) {
+	init: function(vid, long_vid, token, ts) {
 		if (this.token !== token) {
 			ulog('stream token changed ' + this.token + ' -> ' + token);
 			this.interval = tokenInterval(ts);
@@ -245,7 +246,7 @@ var live_stream = {
 		if (this.ws || !this.vid || !this.token) {
 			return;
 		}
-		ulog('opening new websocket, vid=' + this.vid + ', token=' + this.token + ', backoff=' + this.backoff);
+		ulog('opening new websocket, vid=' + this.vid + ', long_vid=' + this.long_vid + ', token=' + this.token + ', backoff=' + this.backoff);
 		this.ws = new WebSocket('wss://streaming.vn.teslamotors.com/streaming/', {
 			followRedirects: true,
 		});
@@ -255,13 +256,12 @@ var live_stream = {
 				msg_type: 'data:subscribe',
 				token: new Buffer.from(creds.email + ':' + this.token).toString('base64'),
 				value: teslams.stream_columns.join(','),
-				tag: this.vid,
+				tag: this.long_vid,
 			};
 			this.ws.send(JSON.stringify(msg));
 		});
 		this.ws.on('close', (code, reason) => {
 			ulog('websocket closed, code=' + code + ', reason=' + reason + ', backoff=' + this.backoff);
-			this.ws = undefined;
 			this._retry();
 		});
 		this.ws.on('error', (err) => {
