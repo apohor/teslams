@@ -358,7 +358,7 @@ var live_stream = {
 function getAux() {
 	// make absolutely sure we don't overwhelm the API
 	var now = new Date().getTime();
-	if ( now - last < 60000) { // last request was within the past minute
+	if ( now - last < 600000) { // last request was within the past minute
 		ulog( 'getAux: ' + rpm + ' of ' + argv.maxrpm + ' REST requests since ' + last);
 		if ( now - last < 0 ) {
 			ulog('Warn: Clock moved backwards - Daylight Savings Time??');
