@@ -11,13 +11,13 @@ var token = '';
 exports.token = token;
 
 // emulate the android mobile app
-var version = '2.1.79';
+var version = '3.8.5-368';
 var model = 'SM-G900V';
 var codename = 'REL';
 var release = '4.4.4';
 var locale = 'en_US';
 var user_agent = 'Model 3 ' + version + ' (' + model + '; Android ' + codename + ' ' + release + '; ' + locale + ')';
-var x_tesla_user_agent = 'TeslaApp/3.4.4-350/fad4a582e/android/9.0.0';
+var x_tesla_user_agent = 'TeslaApp/3.6.0-352/6e736b5a1/android/9.0.0';
 
 //Common HTTP header variable for all requests. Includes authentication credentials (token) and user agent string
 var http_header;
