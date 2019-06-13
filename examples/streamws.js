@@ -663,7 +663,7 @@ function initstream() {
 				}
 			});
 		} else { // this is the valid condition so we have the required tokens and ids
-			sleepmode = false;
+			//sleepmode = false;
 			if (firstTime) {    // initialize only once
 				firstTime = false;
 				initdb(vehicles);
@@ -671,8 +671,9 @@ function initstream() {
 					stream.write('timestamp,' + argv.values + '\n');
 				}
 			}
-			live_stream.init(vehicles.vehicle_id, long_vid, vehicles.tokens[0], now);
-			icount = icount - 1;
+			ulog('Live stream is disabled for now as it\'s not working for Model 3');
+			//live_stream.init(vehicles.vehicle_id, long_vid, vehicles.tokens[0], now);
+			//icount = icount - 1;
 			return;
 		}
 	});
