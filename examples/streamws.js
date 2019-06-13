@@ -247,7 +247,8 @@ var live_stream = {
 		if (this.ws || !this.vid || !this.token) {
 			return;
 		}
-		ulog('opening new websocket, vid=' + this.vid + ', long_vid=' + this.long_vid + ', token=' + (creds.email + ':' + this.token).toString('base64') + ', backoff=' + this.backoff);
+		full_token = new Buffer.from(creds.email + ':' + this.token).toString('base64')
+		ulog('opening new websocket, vid=' + this.vid + ', long_vid=' + this.long_vid + ', token=' + full_token + ', backoff=' + this.backoff);
 		this.ws = new WebSocket('wss://streaming.vn.teslamotors.com/streaming/', {
 			followRedirects: true,
 		});
@@ -255,7 +256,7 @@ var live_stream = {
 		this.ws.on('open', () => {
 			const msg = {
 				msg_type: 'data:subscribe',
-				token: new Buffer.from(creds.email + ':' + this.token).toString('base64'),
+				token: full_token, //new Buffer.from(creds.email + ':' + this.token).toString('base64'),
 				value: teslams.stream_columns.join(','),
 				tag: this.vid,
 			};
