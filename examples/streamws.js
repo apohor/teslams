@@ -247,8 +247,8 @@ var live_stream = {
 		if (this.ws || !this.vid || !this.token) {
 			return;
 		}
-		full_token = new Buffer.from(creds.email + ':' + this.token).toString('base64')
-		ulog('opening new websocket, vid=' + this.vid + ', long_vid=' + this.long_vid + ', token=' + full_token + ', backoff=' + this.backoff);
+		//full_token = new Buffer.from(creds.email + ':' + this.token).toString('base64')
+		ulog('opening new websocket, vid=' + this.vid + ', long_vid=' + this.long_vid + ', token=' + this.token + ', backoff=' + this.backoff);
 		this.ws = new WebSocket('wss://streaming.vn.teslamotors.com/streaming/', {
 			followRedirects: true,
 		});
@@ -256,7 +256,7 @@ var live_stream = {
 		this.ws.on('open', () => {
 			const msg = {
 				msg_type: 'data:subscribe',
-				token: full_token, //new Buffer.from(creds.email + ':' + this.token).toString('base64'),
+				token: new Buffer.from(creds.email + ':' + this.token).toString('base64'),
 				value: teslams.stream_columns.join(','),
 				tag: this.vid,
 			};
@@ -592,7 +592,7 @@ function initstream() {
 		try {
 			vdata = JSONbig.parse(body);
 			long_vid = vdata.response[argv.vehicle].id_s;
-			ulog('Vehicle long_vid: ' + long_vid);
+			//ulog('Vehicle long_vid: ' + long_vid);
 		} catch(err) {
 			ulog('Error: unable to parse vehicle data response as JSON, login failed. Trying again.');
 			setTimeout(function() {
