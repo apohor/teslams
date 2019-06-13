@@ -198,6 +198,7 @@ var live_stream = {
 			ulog('stream token changed ' + this.token + ' -> ' + token);
 			this.interval = tokenInterval(ts);
 			this.vid = vid.toString();
+			this.long_vid = long_vid.toString();
 			this.token = token;
 		}
 		if (--this.backoff < 0) {
@@ -635,7 +636,7 @@ function initstream() {
 					stream.write('timestamp,' + argv.values + '\n');
 				}
 			}
-			live_stream.init(vehicles.vehicle_id, vehicles.id_s, vehicles.tokens[0], now);
+			live_stream.init(vehicles.vehicle_id, long_vid, vehicles.tokens[0], now);
 			icount = icount - 1;
 			return;
 		}
