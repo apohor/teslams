@@ -48,7 +48,7 @@ if ( !isNaN(httpport) && httpport >= 1) {
     argv.port = httpport;
 }
 var MongoClient = require('mongodb').MongoClient;
-var mongoUri = process.env.MONGOLAB_URI|| process.env.MONGOHQ_URI || 'mongodb://127.0.0.1:27017/' + argv.db;
+var mongoUri = process.env.MONGOLAB_URI|| process.env.MONGOHQ_URI + argv.db || 'mongodb://127.0.0.1:27017/' + argv.db;
 console.log('Using MongoDB URI: ' + mongoUri);
 var apiKey = process.env.MAPS_API_KEY || 'no_api_key'
 var date = new Date();
@@ -489,15 +489,16 @@ app.namespace(baseUrl, function() {
                 console.log('error connecting to database:', err);
                 return;
             }
-            var collection = db.collection("tesla_stream");
+            //var collection = db.collection("tesla_stream");
             if (req.query.at === null) {
                 if (argv.verbose) console.log("why is there no 'at' parameter???");
                 return;
             }
             // get the data at time 'at'
             ts = +req.query.at;
+            query = {'driveState': { '$exists': true } };
             options = { 'sort': [['ts', 'desc']], 'limit': 1};
-            collection.find({"ts": {"$lte": +ts}}, options).toArray(function(err,docs) {
+            collectionA.find(query,options).toArray(function(err, docs) {
                 if (argv.verbose) console.log("got datasets:", docs.length);
                 if (docs.length === 0) {
                     // that shouldn't happen unless the database is empty...
@@ -538,9 +539,9 @@ app.namespace(baseUrl, function() {
                 console.log('error connecting to database:', err);
                 return;
             }
-            var collection = db.collection("trip_data");
-            var options = { 'sort': [['chargeState.battery_range', 'desc']] };
-            collection.find({},{ 'sort': [['from', 'desc']], 'limit': 1 }).toArray(function(err,docs) {
+            options = { 'sort': [['chargeState.battery_range', 'desc']] };
+            query = {'driveState': { '$exists': true } };
+            collectionA.find(query,options).toArray(function(err, docs) {
                 console.log(docs);
                 res.setHeader("Content-Type", "application/json");
                 res.send(docs);
@@ -557,7 +558,6 @@ app.namespace(baseUrl, function() {
                 console.log('error connecting to database:', err);
                 return;
             }
-            var collection = db.collection("tesla_stream");
             if (req.query.until === null) {
                 console.log("why is there no 'until' parameter???");
                 return;
@@ -570,7 +570,7 @@ app.namespace(baseUrl, function() {
             var currentTime = new Date().getTime();
             if (+endTime > +currentTime)
                 endTime = +currentTime;
-            collection.find({"ts": {"$gt": +lastTime, "$lte": +endTime}}).toArray(function(err,docs) {
+            collectionA.find({"ts": {"$gt": +lastTime, "$lte": +endTime}}).toArray(function(err,docs) {
                 if (argv.verbose) console.log("got datasets:", docs.length);
                 if (docs.length === 0) {
                     // create one dummy entry so the map app knows the last time we looked at
@@ -619,9 +619,8 @@ app.namespace(baseUrl, function() {
                 console.log('error connecting to database:', err);
                 return;
             }
-            var collection = db.collection("tesla_stream");
             var searchString = {$gte: +from, $lte: +to};
-            collection.find({"ts": searchString}).limit(1).toArray(function(err,docs) {
+            collectionA.find({"ts": searchString}).limit(1).toArray(function(err,docs) {
                 if (argv.verbose) console.log("got datasets:", docs.length);
                 docs.forEach(function(doc) {
                     var record = doc.record;
@@ -675,8 +674,7 @@ app.namespace(baseUrl, function() {
                 return;
             }
             res.setHeader("Content-Type", "text/html");
-            var collection = db.collection("tesla_stream");
-            collection.find({"ts": {$gte: +from, $lte: +to}}).toArray(function(err,docs) {
+            collectionA.find({"ts": {$gte: +from, $lte: +to}}).toArray(function(err,docs) {
                 docs.forEach(function(doc) {
                     vals = doc.record.toString().replace(",,",",0,").split(",");
                     speed = parseInt(vals[1]);
