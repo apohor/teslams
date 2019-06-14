@@ -48,7 +48,7 @@ if ( !isNaN(httpport) && httpport >= 1) {
     argv.port = httpport;
 }
 var MongoClient = require('mongodb').MongoClient;
-var mongoUri = process.env.MONGOLAB_URI|| process.env.MONGOHQ_URI + argv.db || 'mongodb://127.0.0.1:27017/' + argv.db;
+var mongoUri = process.env.MONGO_URL + '/' + argv.db;
 console.log('Using MongoDB URI: ' + mongoUri);
 var apiKey = process.env.MAPS_API_KEY || 'no_api_key'
 var date = new Date();
