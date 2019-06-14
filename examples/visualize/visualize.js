@@ -317,9 +317,9 @@ app.namespace(baseUrl, function() {
         var yearStart = new Date(d.getFullYear(),0,1);
         return Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
     }
-    MongoClient.connect(mongoUri, function(err, db) {
+    MongoClient.connect(mongoUri, function(err, client) {
         // this is the first time we connect - if we get an error, just throw it
-        dbo=db.db(argv.db);
+        var dbo=client.db(argv.db);
         var collectionA = dbo.collection('tesla_aux');
         // get the last stored entry that describes the vehicles
         var query = {'vehicles': { '$exists': true } };
