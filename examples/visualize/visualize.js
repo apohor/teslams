@@ -9,7 +9,6 @@
 //
 require('pkginfo')(module, 'version');
 console.log( module.exports.version );
-var apiKey = 'AIzaSyBAQ9orToKfA-vAzbFjdyE-PIE86P2IKBY';
 
 function argchecker( argv ) {
     if (argv.db === true) throw 'MongoDB database name is unspecified. Use -d dbname or --db dbname';
@@ -51,6 +50,7 @@ if ( !isNaN(httpport) && httpport >= 1) {
 var MongoClient = require('mongodb').MongoClient;
 var mongoUri = process.env.MONGOLAB_URI|| process.env.MONGOHQ_URI || 'mongodb://127.0.0.1:27017/' + argv.db;
 console.log('Using MongoDB URI: ' + mongoUri);
+var apiKey = process.env.MAPS_API_KEY || 'no_api_key'
 var date = new Date();
 var http = require('http');
 var fs = require('fs');
