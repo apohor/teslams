@@ -188,6 +188,7 @@ function storeVehicles(vehicles) {
 function initdb(vehicles) {
     storeVehicles(vehicles);
     getAux.vid = vehicles.id;
+    ulog('Sheduling AUX collection to 10 minutes');
     setInterval(getAux, 6000000); // get aux data every 600 seconds
 }
 
