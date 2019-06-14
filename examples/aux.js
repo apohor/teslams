@@ -47,6 +47,9 @@ var argv = require('optimist')
     .describe('r', 'Maximum number of requests per minute')
     .default('r', 6)
     .alias('n', 'naptime')
+    .alias('i', 'interval')
+    .describe('i', 'AUX check interval in munutes')
+    .default('i', 10)
     .describe('n', 'Number of minutes to nap')
     .default('n', 30)
     .alias('N', 'napcheck')
@@ -69,6 +72,7 @@ argv = argv.argv;
 argv.napcheck *= 60000;
 argv.sleepcheck *= 60000;
 argv.naptime *= 60000;
+argv.interval *= 60000;
 
 if ( argv.help == true ) {
     console.log(usage);
@@ -188,8 +192,7 @@ function storeVehicles(vehicles) {
 function initdb(vehicles) {
     storeVehicles(vehicles);
     getAux.vid = vehicles.id;
-    ulog('Sheduling AUX collection to 10 minutes');
-    setInterval(getAux, 6000000); // get aux data every 600 seconds
+    setInterval(getAux, argv.interval); // get aux data every 600 seconds
 }
 
 function ulog( string ) {
@@ -310,6 +313,7 @@ function init() {
             sleepmode = false;
             if (firstTime) {    // initialize only once
                 firstTime = false;
+                ulog('Info: Running initialization');
                 initdb(vehicles);
                 if (argv.file) { // initialize first line of CSV file output with field names 
                     stream.write('timestamp,' + argv.values + '\n');
