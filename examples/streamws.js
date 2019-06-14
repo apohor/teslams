@@ -566,7 +566,7 @@ function initstream() {
 	}
 	// make absolutely sure we don't overwhelm the API
 	var now = new Date().getTime();
-	if ( now - last < 60000) { // last request was within the past minute
+	if ( now - last < 600000) { // last request was within the past 10 minutes
 		ulog( rpm + ' of ' + argv.maxrpm + ' REST requests since ' + last);
 		if ( now - last < 0 ) {
 			ulog('Warn: Clock moved backwards - Daylight Savings Time??');
@@ -576,7 +576,7 @@ function initstream() {
 			util.log('Warn: throttling due to too many REST API requests');
 			setTimeout(function() {
 				initstream();
-			}, 60000); // 1 minute
+			}, 600000); // 10 minutes
 			icount = icount - 1;
 			return;
 		}
