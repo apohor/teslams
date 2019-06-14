@@ -48,7 +48,7 @@ if ( !isNaN(httpport) && httpport >= 1) {
     argv.port = httpport;
 }
 var MongoClient = require('mongodb').MongoClient;
-var mongoUri = process.env.MONGO_URL + '/' + argv.db;
+var mongoUri = 'mongodb://' + process.env.MONGO_ADDRESS + '/' + argv.db;
 console.log('Using MongoDB URI: ' + mongoUri);
 var apiKey = process.env.MAPS_API_KEY || 'no_api_key'
 var date = new Date();
@@ -319,8 +319,9 @@ app.namespace(baseUrl, function() {
     }
     MongoClient.connect(mongoUri, function(err, db) {
         // this is the first time we connect - if we get an error, just throw it
-        if(err) throw(err);
-        var collectionA = db.collection("tesla_aux");
+        dbo=db.db(argv.db);
+            collectionA = dbo.collection('tesla_aux');
+        });
         // get the last stored entry that describes the vehicles
         var query = {'vehicles': { '$exists': true } };
         var options = { 'sort': [['ts', 'desc']], 'limit': 1};
