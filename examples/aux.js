@@ -4,9 +4,7 @@
 //
 // Get AUX data from vehicle and put it into MongoDB database
 //
-var request = require('request');
 var teslams = require('../teslams.js');
-var fs = require('fs');
 var util = require('util');
 var JSONbig = require('json-bigint');
 
@@ -207,7 +205,7 @@ function init() {
         return;
     }   
     if (napmode) {
-        ulog('Info: car is napping, skipping initstream()');
+        ulog('Info: car is napping, skipping init()');
         icount = icount - 1;
         return;
     } 
