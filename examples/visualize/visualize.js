@@ -484,7 +484,9 @@ app.namespace(baseUrl, function() {
     app.get('/getdata', ensureAuthenticated, function (req, res) {
         var ts, options, vals;
         if (argv.verbose) console.log('/getdata with',req.query.at);
-        MongoClient.connect(mongoUri, function(err, db) {
+        MongoClient.connect(mongoUri, function(err, client) {
+            var dbo=client.db(argv.db);
+            var collectionA = dbo.collection('tesla_aux');    
             if(err) {
                 console.log('error connecting to database:', err);
                 return;
@@ -534,7 +536,9 @@ app.namespace(baseUrl, function() {
     });
 
     app.get('/getlasttrip', ensureAuthenticated, function(req, res) {
-        MongoClient.connect(mongoUri, function(err, db) {
+        MongoClient.connect(mongoUri, function(err, client) {
+            var dbo=client.db(argv.db);
+            var collectionA = dbo.collection('tesla_aux');    
             if (err) {
                 console.log('error connecting to database:', err);
                 return;
@@ -553,7 +557,10 @@ app.namespace(baseUrl, function() {
         // we don't keep the database connection as that has caused occasional random issues while testing
         if (!started)
             return;
-        MongoClient.connect(mongoUri, function(err, db) {
+        MongoClient.connect(mongoUri, function(err, client) {
+            var dbo=client.db(argv.db);
+            var collectionA = dbo.collection('tesla_aux');
+    
             if(err) {
                 console.log('error connecting to database:', err);
                 return;
@@ -614,7 +621,9 @@ app.namespace(baseUrl, function() {
             res.redirect(baseUrl + '/map?from=' + dates.fromQ + '&to=' + dates.toQ + '&speed=' + speedQ.toFixed(0) + params);
             return;
         }
-        MongoClient.connect(mongoUri, function(err, db) {
+        MongoClient.connect(mongoUri, function(err, client) {
+            var dbo=client.db(argv.db);
+            var collectionA = dbo.collection('tesla_aux');    
             if(err) {
                 console.log('error connecting to database:', err);
                 return;
@@ -667,7 +676,9 @@ app.namespace(baseUrl, function() {
         var gMaxE = -1000, gMaxS = -1000;
         var gMinE = 1000, gMinS = 1000;
         var cumulE = 0, cumulR = 0, cumulES, cumulRS, prevTS;
-        MongoClient.connect(mongoUri, function(err, db) {
+        MongoClient.connect(mongoUri, function(err, client) {
+            var dbo=client.db(argv.db);
+            var collectionA = dbo.collection('tesla_aux');    
             var speed, energy, soc, vals;
             if(err) {
                 console.log('error connecting to database:', err);
