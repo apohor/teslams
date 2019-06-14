@@ -539,11 +539,11 @@ function storeVehicles(vehicles) {
 
 // if we are storing into a database or publishing to mqtt we also want to
 // - store/publish the vehicle data (once, after the first connection)
-// - store/publish some other REST API data around climate and charging (every minute)
+// - store/publish some other REST API data around climate and charging
 function initdb(vehicles) {
 	storeVehicles(vehicles);
 	getAux.vid = vehicles.id;
-	setInterval(getAux, 60000); // also get non-streaming data every 60 seconds
+	setInterval(getAux, 600000); // also get non-streaming data every 600 seconds
 }
 
 function ulog( string ) {
